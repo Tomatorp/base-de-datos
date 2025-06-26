@@ -18,7 +18,7 @@ CREATE TABLE Tienda (
     nombre_tienda VARCHAR(15),
     id_usuario INT
 );
--- en orden descendente pues hay tablas que requieren de llaves foranear que en el diccionario se implementan despues
+-- en orden descendente pues hay tablas que requieren de llaves foraneas que en el diccionario se implementan despues
 -- segunda seccion
 CREATE TABLE Videojuego (
     game_id INT PRIMARY KEY,
