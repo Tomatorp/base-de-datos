@@ -49,10 +49,10 @@ WHERE id_carro = 1;
 -- consulta numero 20, compra no valida por metodo de pago no valida
 DO $$
 DECLARE
-    metodo_pago_input TEXT := 'moneda de oro';  -- Cambia este valor por cualquier medio de pago
+    metodo_pago_input TEXT := 'moneda de oro';  -- Cambiar por cualquier medio de pago
     carrito_id INT := 1;
     total_pago INT := 25000;
-    nueva_boleta_id INT := 5;  -- Asegúrate de usar un ID único
+    nueva_boleta_id INT := 5;  -- recordar usar un id único
 BEGIN
     IF metodo_pago_input NOT IN ('Credito', 'Debito', 'Transferencia') THEN
         RAISE NOTICE 'Método de pago "%", no válido. Compra no realizada.', metodo_pago_input;
