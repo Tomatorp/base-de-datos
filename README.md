@@ -18,11 +18,8 @@ La carpeta `Entrega de proyecto Monono` contiene la versión que se desea presen
 ---
 
 ## 📂 Estructura del Repositorio
-MononoAvance4/
-├── estructura.sql # Creación de tablas, relaciones, triggers y funciones
-├── poblado.sql # Inserción de datos de prueba
-├── consultas.sql # Consultas y funciones implementadas
-
+Entrega de proyecto Monono --> | Creacion de tablas, triggers y procedimientos/funciones | Poblado de la base de datos | Consultas solisitadas
+ 
 ---
 
 ## ▶️ Instrucciones de Uso
@@ -32,13 +29,11 @@ MononoAvance4/
    - `estructura.sql`
    - `poblado.sql`
    - `consultas.sql`
-3. Probar las funciones desde un cliente como PgAdmin, DBeaver o consola PostgreSQL.
-
-> Requiere PostgreSQL 13 o superior.
+3. Recordar que este proyecto requiere de PGadmin y postgreeSQL 16 o mayor para funcionar correctamente
 
 ---
 
-## 👨‍💻 Equipo de Desarrollo
+## 👨‍💻 Equipo Monono
 
 - Malaquias Gonzalez
 - Rayen Gomez
@@ -49,13 +44,4 @@ MononoAvance4/
 
 ---
 
-## 📫 Revisión del Proyecto
-
-Este repositorio debe permanecer **público**.  
-Si es privado, se debe enviar una invitación al siguiente correo:
-
-📧 **mdiazb@utem.cl**
-
----
-
-> Proyecto desarrollado para la asignatura de Bases de Datos – UTEM, 2025.
+> Proyecto Monono fue desarrollado para el ramo Bases de Datos – UTEM.
