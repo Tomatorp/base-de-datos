@@ -1,0 +1,185 @@
+-- primera seccion
+CREATE TABLE Rol (
+    id_role INT PRIMARY KEY,
+    tipo VARCHAR(15)
+);
+
+CREATE TABLE Ranking (
+    id_ranking INT PRIMARY KEY,
+    tipo_ranking VARCHAR(20)
+);
+
+CREATE TABLE Categoria (
+    tipo_categoría VARCHAR(20) PRIMARY KEY
+);
+
+CREATE TABLE Tienda (
+    url_tienda VARCHAR(25) PRIMARY KEY,
+    nombre_tienda VARCHAR(15),
+    id_usuario INT
+);
+-- en orden descendente pues hay tablas que requieren de llaves foraneas que en el diccionario se implementan despues
+-- segunda seccion
+CREATE TABLE Videojuego (
+    game_id INT PRIMARY KEY,
+    game_name VARCHAR(35),
+    game_price VARCHAR(7),
+    url_imagen VARCHAR(25),
+    ventas VARCHAR(10),
+    stock VARCHAR(10),
+    desarrollador VARCHAR(35),
+    url_tienda VARCHAR(25),
+    FOREIGN KEY (url_tienda) REFERENCES Tienda(url_tienda)
+);
+
+-- tercera seccion
+CREATE TABLE Usuario (
+    id_usuario INT PRIMARY KEY,
+    correo VARCHAR(80),
+    username VARCHAR(20),
+    clave VARCHAR(40),
+    pais VARCHAR(48),
+    id_role INT,
+    tipo_usuario VARCHAR(15),
+    id_usuario_modifica INT,
+    url_tienda VARCHAR(25),
+    id_lista INT,
+    id_carro INT,
+    FOREIGN KEY (id_role) REFERENCES Rol(id_role),
+    FOREIGN KEY (url_tienda) REFERENCES Tienda(url_tienda)
+);
+
+CREATE TABLE Lista_Deseados (
+    id_lista INT PRIMARY KEY,
+    id_usuario INT,
+    id_ranking INT,
+    FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario),
+    FOREIGN KEY (id_ranking) REFERENCES Ranking(id_ranking)
+);
+
+CREATE TABLE Carro_Compras (
+    id_carro INT PRIMARY KEY,
+    id_usuario INT,
+    url_tienda VARCHAR(25),
+    FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario),
+    FOREIGN KEY (url_tienda) REFERENCES Tienda(url_tienda)
+);
+
+-- cuarta seccion
+ALTER TABLE Usuario
+ADD CONSTRAINT fk_usuario_modifica FOREIGN KEY (id_usuario_modifica) REFERENCES Usuario(id_usuario);
+
+ALTER TABLE Usuario
+ADD CONSTRAINT fk_usuario_lista FOREIGN KEY (id_lista) REFERENCES Lista_Deseados(id_lista);
+
+ALTER TABLE Usuario
+ADD CONSTRAINT fk_usuario_carro FOREIGN KEY (id_carro) REFERENCES Carro_Compras(id_carro);
+
+-- quinta seccion
+CREATE TABLE Valoracion (
+    id_valoracion INT PRIMARY KEY,
+    fechaV DATE,
+    id_ranking INT,
+    game_id INT,
+    FOREIGN KEY (id_ranking) REFERENCES Ranking(id_ranking),
+    FOREIGN KEY (game_id) REFERENCES Videojuego(game_id)
+);
+
+CREATE TABLE Proceso_Pago (
+    id_boleta INT PRIMARY KEY,
+    metodo_pago VARCHAR(15),
+    fechaC DATE,
+    id_carro INT,
+    FOREIGN KEY (id_carro) REFERENCES Carro_Compras(id_carro)
+);
+
+--sexta seccion
+CREATE TABLE Usuario_Valoracion (
+    id_usuario INT,
+    id_valoracion INT,
+    comentario VARCHAR(100),
+    tipo_valoracion BOOLEAN,
+    PRIMARY KEY (id_usuario, id_valoracion),
+    FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario),
+    FOREIGN KEY (id_valoracion) REFERENCES Valoracion(id_valoracion)
+);
+
+CREATE TABLE Videojuego_Carro (
+    game_id INT,
+    id_carro INT,
+    PRIMARY KEY (game_id, id_carro),
+    FOREIGN KEY (game_id) REFERENCES Videojuego(game_id),
+    FOREIGN KEY (id_carro) REFERENCES Carro_Compras(id_carro)
+);
+
+CREATE TABLE Videojuego_Lista_Deseos (
+    game_id INT,
+    id_lista INT,
+    PRIMARY KEY (game_id, id_lista),
+    FOREIGN KEY (game_id) REFERENCES Videojuego(game_id),
+    FOREIGN KEY (id_lista) REFERENCES Lista_Deseados(id_lista)
+);
+
+CREATE TABLE Videojuego_Categoria (
+    game_id INT,
+    tipo_categoría VARCHAR(20),
+    PRIMARY KEY (game_id, tipo_categoría),
+    FOREIGN KEY (game_id) REFERENCES Videojuego(game_id),
+    FOREIGN KEY (tipo_categoría) REFERENCES Categoria(tipo_categoría)
+);
+
+CREATE TABLE Videojuego_Ranking (
+    game_id INT,
+    id_ranking INT,
+    PRIMARY KEY (game_id, id_ranking),
+    FOREIGN KEY (game_id) REFERENCES Videojuego(game_id),
+    FOREIGN KEY (id_ranking) REFERENCES Ranking(id_ranking)
+);
+-- para poblar la tabla
+-- Roles
+INSERT INTO Rol VALUES (1, 'Admin'), (2, 'Jefe'), (3, 'Cliente');
+
+-- Ranking
+INSERT INTO Ranking VALUES (1, 'Mejores RPG'), (2, 'Top Ventas');
+
+-- Categorías
+INSERT INTO Categoria VALUES ('Acción'), ('Aventura'), ('RPG');
+
+-- Tiendas
+INSERT INTO Tienda VALUES ('www.tiendajuegos1.com', 'Tienda1', NULL), ('www.tiendajuegos2.com', 'Tienda2', NULL);
+
+-- Videojuegos
+INSERT INTO Videojuego VALUES
+(9001, 'Elden Ring', '59.99', 'img/elden.jpg', '50000', '100', 'FromSoftware', 'www.tiendajuegos1.com'),
+(9002, 'The Witcher 3', '39.99', 'img/witcher.jpg', '30000', '150', 'CD Projekt', 'www.tiendajuegos2.com'),
+(9003, 'Hades', '19.99', 'img/hades.jpg', '20000', '200', 'Supergiant', 'www.tiendajuegos1.com');
+
+-- Usuarios (sin claves foráneas aún)
+INSERT INTO Usuario (id_usuario, correo, username, clave, pais, id_role, tipo_usuario, id_usuario_modifica, url_tienda) VALUES
+(1001, 'admin@tienda.com', 'admin', 'clave123', 'Chile', 1, 'Total', NULL, 'www.tiendajuegos1.com'),
+(1002, 'jefe@tienda.com', 'jefe', 'clave456', 'Argentina', 2, 'Limitado', 1001, 'www.tiendajuegos1.com'),
+(1003, 'cliente@correo.com', 'cliente1', 'clave789', 'Perú', 3, 'Básico', 1001, 'www.tiendajuegos2.com');
+
+-- Lista de deseos
+INSERT INTO Lista_Deseados VALUES (5001, 1001, 1), (5002, 1002, 2), (5003, 1003, 1);
+
+-- Carro de compras
+INSERT INTO Carro_Compras VALUES (7001, 1001, 'www.tiendajuegos1.com'), (7002, 1002, 'www.tiendajuegos1.com'), (7003, 1003, 'www.tiendajuegos2.com');
+
+-- Actualizar usuarios con id_lista y id_carro
+UPDATE Usuario SET id_lista = 5001, id_carro = 7001 WHERE id_usuario = 1001;
+UPDATE Usuario SET id_lista = 5002, id_carro = 7002 WHERE id_usuario = 1002;
+UPDATE Usuario SET id_lista = 5003, id_carro = 7003 WHERE id_usuario = 1003;
+
+-- Valoraciones
+INSERT INTO Valoracion VALUES (11001, '2024-05-20', 1, 9001), (11002, '2024-06-01', 2, 9002);
+
+-- Proceso de pago
+INSERT INTO Proceso_Pago VALUES (160001, 'Tarjeta', '2024-06-15', 7001), (160002, 'PayPal', '2024-06-16', 7003);
+
+-- Relaciones
+INSERT INTO Usuario_Valoracion VALUES (1001, 11001, 'Excelente juego', TRUE), (1003, 11002, 'Muy bueno', TRUE);
+INSERT INTO Videojuego_Carro VALUES (9001, 7001), (9002, 7003);
+INSERT INTO Videojuego_Lista_Deseos VALUES (9003, 5002), (9001, 5003);
+INSERT INTO Videojuego_Categoria VALUES (9001, 'RPG'), (9002, 'Aventura'), (9003, 'Acción');
+INSERT INTO Videojuego_Ranking VALUES (9001, 1), (9002, 2);
