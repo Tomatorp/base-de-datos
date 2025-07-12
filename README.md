@@ -13,7 +13,7 @@ El sistema incluye los siguientes componentes clave:
 - Registro y auditoría de acciones sensibles, como compras y eliminaciones, mediante triggers.
 
 La base de datos fue diseñada por **GrupoMonono**, y el repositorio contiene múltiples versiones de trabajo y consolidaciones progresivas.  
-La carpeta `MononoAvance4` contiene la versión que se desea presentar para esta evaluación, incluyendo los scripts de creación de estructura, inserción de datos y consultas funcionales.
+La carpeta `Entrega de proyecto Monono` contiene la versión que se desea presentar para esta evaluación, incluyendo los scripts de creación de estructura, inserción de datos y consultas funcionales.
 
 ---
 
