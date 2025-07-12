@@ -1,0 +1,142 @@
+CREATE TABLE Rol (
+    id_role INT PRIMARY KEY,
+    tipo VARCHAR(15)
+);
+
+CREATE TABLE Ranking (
+    id_ranking INT PRIMARY KEY,
+    tipo_ranking VARCHAR(20)
+);
+
+CREATE TABLE Categoria (
+    tipo_categoría VARCHAR(20) PRIMARY KEY
+);
+
+CREATE TABLE Tienda (
+    url_tienda VARCHAR(25) PRIMARY KEY,
+    nombre_tienda VARCHAR(15),
+    id_usuario INT
+);
+
+CREATE TABLE Videojuego (
+    game_id INT PRIMARY KEY,
+    game_name VARCHAR(35),
+    game_price VARCHAR(7),
+    url_imagen VARCHAR(25),
+    ventas VARCHAR(10),
+    stock VARCHAR(10),
+    desarrollador VARCHAR(35),
+    url_tienda VARCHAR(25),
+    FOREIGN KEY (url_tienda) REFERENCES Tienda(url_tienda)
+);
+
+CREATE TABLE Usuario (
+    id_usuario INT PRIMARY KEY,
+    correo VARCHAR(80),
+    username VARCHAR(20),
+    clave VARCHAR(40),
+    pais VARCHAR(48),
+    id_role INT,
+    id_usuario_modifica INT,
+    url_tienda VARCHAR(25),
+    id_lista INT,
+    id_carro INT,
+    FOREIGN KEY (id_role) REFERENCES Rol(id_role),
+    FOREIGN KEY (url_tienda) REFERENCES Tienda(url_tienda)
+);
+
+CREATE TABLE Lista_Deseados (
+    id_lista INT PRIMARY KEY,
+    id_usuario INT,
+    id_ranking INT,
+    FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario),
+    FOREIGN KEY (id_ranking) REFERENCES Ranking(id_ranking)
+);
+
+CREATE TABLE Carro_Compras (
+    id_carro INT PRIMARY KEY,
+    id_usuario INT,
+    url_tienda VARCHAR(25),
+    precio_total VARCHAR(10),
+    FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario),
+    FOREIGN KEY (url_tienda) REFERENCES Tienda(url_tienda)
+);
+
+-- Relaciones adicionales de Usuario
+ALTER TABLE Usuario
+ADD CONSTRAINT fk_usuario_modifica FOREIGN KEY (id_usuario_modifica) REFERENCES Usuario(id_usuario);
+
+ALTER TABLE Usuario
+ADD CONSTRAINT fk_usuario_lista FOREIGN KEY (id_lista) REFERENCES Lista_Deseados(id_lista);
+
+ALTER TABLE Usuario
+ADD CONSTRAINT fk_usuario_carro FOREIGN KEY (id_carro) REFERENCES Carro_Compras(id_carro);
+
+CREATE TABLE Valoracion (
+    id_valoracion INT PRIMARY KEY,
+    fechaV DATE,
+    id_ranking INT,
+    game_id INT,
+    FOREIGN KEY (id_ranking) REFERENCES Ranking(id_ranking),
+    FOREIGN KEY (game_id) REFERENCES Videojuego(game_id)
+);
+
+-- Tabla de Proceso de Compra
+CREATE TABLE Proceso_Compra (
+    id_boleta INT PRIMARY KEY,
+    metodo_pago VARCHAR(15),
+    fechaC DATE,
+    id_carro INT,
+    FOREIGN KEY (id_carro) REFERENCES Carro_Compras(id_carro)
+);
+
+CREATE TABLE Usuario_Valoracion (
+    id_usuario INT,
+    id_valoracion INT,
+    comentario VARCHAR(100),
+    tipo_valoracion BOOLEAN,
+    PRIMARY KEY (id_usuario, id_valoracion),
+    FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario),
+    FOREIGN KEY (id_valoracion) REFERENCES Valoracion(id_valoracion)
+);
+
+CREATE TABLE Videojuego_Carro (
+    game_id INT,
+    id_carro INT,
+    PRIMARY KEY (game_id, id_carro),
+    FOREIGN KEY (game_id) REFERENCES Videojuego(game_id),
+    FOREIGN KEY (id_carro) REFERENCES Carro_Compras(id_carro)
+);
+
+CREATE TABLE Videojuego_Lista_Deseos (
+    game_id INT,
+    id_lista INT,
+    PRIMARY KEY (game_id, id_lista),
+    FOREIGN KEY (game_id) REFERENCES Videojuego(game_id),
+    FOREIGN KEY (id_lista) REFERENCES Lista_Deseados(id_lista)
+);
+
+CREATE TABLE Videojuego_Categoria (
+    game_id INT,
+    tipo_categoría VARCHAR(20),
+    PRIMARY KEY (game_id, tipo_categoría),
+    FOREIGN KEY (game_id) REFERENCES Videojuego(game_id),
+    FOREIGN KEY (tipo_categoría) REFERENCES Categoria(tipo_categoría)
+);
+
+CREATE TABLE Videojuego_Ranking (
+    game_id INT,
+    id_ranking INT,
+    PRIMARY KEY (game_id, id_ranking),
+    FOREIGN KEY (game_id) REFERENCES Videojuego(game_id),
+    FOREIGN KEY (id_ranking) REFERENCES Ranking(id_ranking)
+);
+
+-- Tabla para registrar usuarios con privilegios CRUD sobre tiendas
+CREATE TABLE Usuario_CRUD_Tienda (
+    id_usuario INT,
+    url_tienda VARCHAR(25),
+    PRIMARY KEY (id_usuario, url_tienda),
+    FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario),
+    FOREIGN KEY (url_tienda) REFERENCES Tienda(url_tienda)
+);
