@@ -30,7 +30,7 @@ Entrega de proyecto Monono --> | estructura.sql | poblado.sql | consultas.sql
    - `poblado.sql`
    - `consultas.sql`
 3. Recordar que este proyecto requiere de PGadmin y postgreeSQL 16 o mayor para funcionar correctamente
-
+4. Se recomienda al ejecutar las consultas, hacer los comandos uno por uno en el orden que están puestos para asi verificar su funcionalidad
 ---
 
 ## 👨‍💻 Equipo Monono
