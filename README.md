@@ -18,7 +18,7 @@ La carpeta `Entrega de proyecto Monono` contiene la versión que se desea presen
 ---
 
 ## 📂 Estructura del Repositorio
-Entrega de proyecto Monono --> | estructura.sql | pblado.sql | consultas.sql
+Entrega de proyecto Monono --> | estructura.sql | poblado.sql | consultas.sql
  
 ---
 
