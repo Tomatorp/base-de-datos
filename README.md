@@ -1,6 +1,6 @@
-# 🎮 Proyecto Base de Datos – Sistema de Gestión de Videojuegos
+# Proyecto Base de Datos – GrupoMonono
 
-## 📝 Descripción del Proyecto
+##  Descripción del Proyecto
 
 Este proyecto consiste en el diseño e implementación de una base de datos relacional en **PostgreSQL**, orientada a simular la operación de una tienda virtual de videojuegos. Fue desarrollado como parte del trabajo final del curso de **Bases de Datos – UTEM**, y abarca desde la modelación inicial hasta la implementación funcional mediante funciones, procedimientos y triggers.
 
@@ -18,4 +18,40 @@ La carpeta `Entrega de proyecto Monono` contiene la versión que se desea presen
 ---
 
 ## 📂 Estructura del Repositorio
+MononoAvance4/
+├── estructura.sql # Creación de tablas, relaciones, triggers y funciones
+├── poblado.sql # Inserción de datos de prueba
+├── consultas.sql # Consultas y funciones implementadas
 
+---
+
+## ▶️ Instrucciones de Uso
+
+1. Crear una nueva base de datos en PostgreSQL.
+2. Ejecutar los archivos en el siguiente orden:
+   - `estructura.sql`
+   - `poblado.sql`
+   - `consultas.sql`
+3. Probar las funciones desde un cliente como PgAdmin, DBeaver o consola PostgreSQL.
+
+> Requiere PostgreSQL 13 o superior.
+
+---
+
+## 👨‍💻 Equipo de Desarrollo
+
+- [Tu nombre]
+- [Nombre del compañero, si aplica]
+
+---
+
+## 📫 Revisión del Proyecto
+
+Este repositorio debe permanecer **público**.  
+Si es privado, se debe enviar una invitación al siguiente correo:
+
+📧 **mdiazb@utem.cl**
+
+---
+
+> Proyecto desarrollado para la asignatura de Bases de Datos – UTEM, 2025.
