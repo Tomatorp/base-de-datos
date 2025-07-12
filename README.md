@@ -40,8 +40,12 @@ MononoAvance4/
 
 ## 👨‍💻 Equipo de Desarrollo
 
-- [Tu nombre]
-- [Nombre del compañero, si aplica]
+- Malaquias Gonzalez
+- Rayen Gomez
+- Rafael Gallegos
+- Javier Lopez
+- Cristobal Donoso
+- Francisco Araneda
 
 ---
 
